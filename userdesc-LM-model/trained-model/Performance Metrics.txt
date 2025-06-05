@@ -1,0 +1,6 @@
+Epoch	Training Loss	Validation      Loss Accuracy	F1	        Precision	Recall
+1	0.394400	0.219112	0.918782	0.832621	0.856970	0.809617
+2	0.160300	0.180762	0.953961	0.910429	0.884669	0.937734
+3	0.071100	0.173906	0.964820	0.931289	0.908274	0.955501
+
+**Note: only 3rd epoch is relevant, maybe in the future the improvement of the epochs will be relevant 
