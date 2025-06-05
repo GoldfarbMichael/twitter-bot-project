@@ -10,16 +10,18 @@ Due to storage limitations on GitHub, the following datasets are **not included*
 
 2. **Labeled Sunset Dataset**  
    - Same as (1)
+   - path: Workshop/twitter_proc/labeled_sunset.csv
 
 3. **TwittBot22 Dataset**  
    - Same as (1)
+   - path: Workshop/twitter_proc/labels.csv
 
 4. **Transformer Training & Tokenization Data (also stored in Google Drive) **  
    - Preprocessed data used to train transformer-based models.
    - Includes:
-     - Tokenized inputs
-     - Training/validation splits
-     - Vocabulary/index mapping artifacts
+     - tokenized text data (/tokenized_data_train_balanced/)
+     - trained model checkpoints (results/checkpoint-18441/)
+   - path: Workshop/twitter_proc/userdesc_train/
 
 ---
 
