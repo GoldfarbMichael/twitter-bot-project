@@ -23,5 +23,7 @@ Due to storage limitations on GitHub, the following datasets are **not included*
      - trained model checkpoints (results/checkpoint-18441/)
    - path: Workshop/twitter_proc/userdesc_train/
 
+5. ** After labeling data **
+   - path: Workshop/twitter_proc/unique_users_after_labeling.csv
 ---
 
