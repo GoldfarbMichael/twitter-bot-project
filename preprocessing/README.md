@@ -1,4 +1,4 @@
-## bot_detection_dataset.ipynb
+# bot_detection_dataset.ipynb
 
 This notebook performs data cleaning and filtering to prepare a refined dataset of bot accounts for downstream analysis:
 
@@ -12,7 +12,7 @@ This notebook performs data cleaning and filtering to prepare a refined dataset 
 This step ensures a clean and deduplicated bot dataset, ready for numerical model ingestion.
 
 
-## sunset_pre_preprocessing.ipynb
+# sunset_pre_preprocessing.ipynb
 
 This notebook processes the labeled_sunset.csv dataset, it drops the redundent columns from the dataframe and reduces all records to one record per unique user, add following features:
 - total_tweets - tweets per user on twitter
@@ -56,7 +56,7 @@ In this case we will insert 0 to each missing value that is added form bot_recor
 - `intersection_userdesc_labeled.csv`: Final dataset combining features and descriptions for modeling.
 
 This process ensures a balanced and feature-aligned dataset, ideal for building robust classification models using both structured features and textual descriptions.
-## sunset_unlabeled_preprocessing.ipynb
+# sunset_unlabeled_preprocessing.ipynb
 
 This notebook processes a directory of CSV files containing Twitter user data. It extracts unique user IDs, filters out already-labeled accounts, and aggregates user statistics for further processing or model training.
 
@@ -121,7 +121,7 @@ This notebook processes a directory of CSV files containing Twitter user data. I
 ---
 
 This notebook is essential for identifying new users to label or include in model training while ensuring there's no overlap with already-labeled data.
-## twittbot22_sunset_merge.ipynb
+# twittbot22_sunset_merge.ipynb
 This notebook downloads, restructures, and filters a 1.2M-row Twitter dataset related to the Ukraine-Russia crisis. The goal is to isolate labeled tweets and generate two datasets: one for bots and one for humans.
 
 ---
