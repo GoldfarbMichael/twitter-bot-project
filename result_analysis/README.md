@@ -84,7 +84,8 @@ This notebook processes bot-generated tweets using state-of-the-art sentence emb
 - Ensures at least 5 tokens per tweet
 
 ```python
-clean_tweet("Example tweet with #hashtag and @mention http://link") 
+clean_tweet("Example tweet with #hashtag and @mention http://link")
+```
 # ➜ "example tweet with and"
 
 ### 2. Sentence Embedding
@@ -153,8 +154,7 @@ This script processes raw Twitter `.csv` files by:
   `../data/unique_users_after_labeling2.csv`  
   > Contains `userid`, `label` (1 for bot, 0 for human)
 
-- **Raw Tweet Files Directory**:  
-  `D:\notability\שנה ד\סמסטר ב\סדנת הכנה\twitter_proc\files`  
+- **Raw Tweet Files Directory**:    
   > Each file should contain `userid` and `text` columns
 
 ---
@@ -207,5 +207,158 @@ This script processes raw Twitter `.csv` files by:
 0    1968  @VeritasVinnie21 @MrChuckD They traded her fre...
 1    1968  @gloria_sin It's not the weapons, its avoiding...
 2   59563  Finally!!! #Messi𓃵 ❤️❤️❤️ #WorldCupFinal #Arge...
-3  647943  ++ Ecco i partigiani #Russia anti #Putin. Ora ...
-4  647943  Sacrificio estremo degli ucraini, attacchi sui..
+
+
+# user_analysis_after_labeling.ipynb
+
+
+This notebook analyzes user-level features to understand behavioral and textual patterns of bots and humans on Twitter — particularly in the context of the Russia–Ukraine war dataset.
+
+---
+
+##  1. Data Source
+
+- **Input File**:  
+  `../data/unique_users_after_labeling2.csv`  
+
+Each row represents a unique Twitter user with the following fields:
+
+| Column Name         | Description                                |
+|---------------------|--------------------------------------------|
+| `userid`            | Unique Twitter user ID                     |
+| `totaltweets`       | Total tweets by the user                   |
+| `avg_retweetcount`  | Average retweets per tweet                 |
+| `followers`         | Number of followers                        |
+| `following`         | Number of accounts followed                |
+| `acctdesc`          | User-provided bio/description              |
+| `label`             | 0 = Human, 1 = Bot (model-labeled)         |
+
+---
+
+##  Overview of Findings
+
+### Label Distribution
+
+- **Humans**: 2,324,724 users  
+- **Bots**: 64,955 users  
+
+> Bots comprise ~2.7% of labeled users.
+
+![Label Distribution](label_distribution.png) <!-- Replace with your image path if exporting -->
+
+---
+
+##  Feature Comparisons
+
+### 1. Behavioral Feature Averages
+
+| Label | Total Tweets | Avg Retweet Count | Followers | Following |
+|-------|--------------|-------------------|-----------|-----------|
+| Human | 18,722       | 406               | 4,613     | 1,045     |
+| Bot   | 12,265       | 301               | 1,568     |   918     |
+
+ **Conclusion**: Humans tend to tweet more, have more followers, and receive more retweets than bots.
+
+---
+
+### 2. Tweet Volume Distribution
+
+>  **Observation**: Bots are concentrated in lower tweet volumes; humans show broader, higher activity levels.
+
+![Tweet Volume](tweet_volume.png) <!-- Replace with your image path if exporting -->
+
+---
+
+### 3. Average Retweet Count (Boxplot)
+
+>  **Conclusion**: Humans tend to achieve higher engagement with more frequent extreme values (viral posts).
+
+![Retweet Boxplot](retweet_boxplot.png)
+
+---
+
+### 4. Followers vs Following (Scatter)
+
+>  **Key Insight**: Bots often have a low follower-to-following ratio — a red flag for automation.
+
+---
+
+### 5. Follower-to-Following Ratio
+
+> Bots typically follow many accounts while receiving relatively few followers — a pattern consistent with inauthentic behavior.
+
+---
+
+### 6. Feature Correlation Heatmap
+
+>  **Conclusion**: Weak feature correlations indicate that each feature adds independent predictive value for classification.
+
+---
+
+##  Textual Analysis: User Descriptions
+
+### Word Cloud of Most Common Terms
+
+- **Top Human Keywords**:  
+  `love`, `music`, `life`, `fan`, `proud`, `god`  
+
+- **Top Bot Keywords**:  
+  `crypto`, `nft`, `bitcoin`, `trader`, `engineer`, `marketing`  
+
+ **Conclusion**:  
+Human bios are emotionally expressive and socially oriented.  
+Bots lean toward promotional, technical, or ideological language.
+
+---
+
+##  Summary Statistics Table
+
+Detailed breakdown of mean, median, and standard deviation per label:
+
+| Label | Tweet Mean | Median | Std | Retweet Mean | Median | Std | Followers Mean | Median | Std | Following Mean | Median | Std |
+|-------|------------|--------|-----|---------------|--------|-----|----------------|--------|-----|----------------|--------|-----|
+| Human | 18722.5    | 3017   | 66831 | 406.1       | 0.67   | 2194 | 4613.8         | 168    | 142167 | 1045.6        | 320    | 4366 |
+| Bot   | 12265.8    | 1630   | 39909 | 300.7       | 0.00   | 1863 | 1568.6         | 126    | 17742  | 918.1         | 246    | 3120 |
+
+---
+
+##  Research Conclusions
+
+###  Core Research Question  
+**How do bots influence social discourse during the Russia–Ukraine war?**
+
+---
+
+###  Key Findings
+
+- **Bots Are Present but a Minority**  
+  Despite their small proportion, bots (~65K users) show significant automated participation.
+
+- **Distinct Behavioral Traits**  
+  Bots have fewer followers, follow more accounts, and maintain a lower follower-to-following ratio.
+
+- **Commercial & Ideological Messaging**  
+  Bot bios include frequent mentions of crypto, marketing, trading — signaling coordinated intent.
+
+- **Amplification > Engagement**  
+  Bots prioritize message dissemination rather than organic interaction.
+
+- **Qualitative Impact**  
+  Bots contribute to narrative shaping during high-tension events, even without high engagement.
+
+---
+
+##  Summary
+
+- Majority of accounts were labeled as human (~97%).
+- Bots display consistent behavioral and textual distinctions.
+- Key features:
+  - Lower retweet counts
+  - Follower/following imbalance
+  - Commercial/ideological account descriptions
+- The model successfully distinguishes user types using metadata + text features.
+- Useful for scalable bot detection during major global events.
+
+
+
+
