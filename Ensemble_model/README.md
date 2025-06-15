@@ -126,3 +126,75 @@ print(ensemble.predict_label(acctdesc, features))  # → 1
 - It's flexible to different numeric model types.
 
 - Useful in bot detection, fake profile classification, and hybrid ML systems.
+  
+
+
+# userdesc-numeric-Ensemble.ipynb
+This notebook demonstrates a hybrid approach to bot detection by combining:
+
+A transformer-based language model for processing account descriptions.
+A numeric-based model (either MLP or ONNX-based Random Forest) for handling user metadata like follower count and average retweet count.
+An ensemble mechanism to combine both predictions.
+### Components
+1. Transformer Model
+Architecture: DistilBERT (fine-tuned for sequence classification)
+Input: Account description (acctdesc)
+Output: Probability of the account being a bot
+2. Numeric Models
+Two models are used to analyze user statistics:
+
+MLP Classifier (PyTorch)
+Random Forest (ONNX)
+Features used:
+
+followers
+avg_retweetcount
+3. BotEnsemble
+A custom ensemble class that combines the transformer output with the numeric model output using a weight alpha.
+
+
+
+
+### Performance Summary
+MLP Ensemble:
+
+F1 Score: 0.8054
+ROC AUC: 0.9136
+Random Forest Ensemble:
+
+F1 Score: 0.8414 (better)
+ROC AUC: 0.9871 (significantly better)
+→ Random Forest wins, especially in overall ranking ability (AUC).
+
+### Labeling Outcome
+Labeled Users: 2,285,391
+Bots (1): 58,517
+Humans (0): 2,226,874
+→ Bot rate ≈ 2.56%, which is plausible depending on your domain.
+
+🔍 Suggested Improvements
+Parallelize Prediction
+You're using apply() with a lambda, which can be slow on millions of users. Consider:
+
+Batch-predicting with your ensemble.
+Using joblib.Parallel or multiprocessing for chunk-level parallelization.
+If ensemble2 supports batching, rewrite to use ensemble2.predict_proba_batch(...).
+Save Intermediate Results
+During batch labeling, write a separate CSV per chunk (e.g., batch_00.csv) and combine later. This:
+
+Reduces risk of data loss if interrupted.
+Speeds up I/O.
+Balance Check
+You might want to stratify future sampling for training/validation if retraining based on this full dataset.
+
+Use Stratified Metrics
+In addition to macro avg F1/ROC, consider:
+
+Precision@k (e.g., top 1% most bot-likely)
+False Positive Rate, especially since humans dominate (class imbalance)
+### Final Output
+
+
+unique_users_after_labeling2.csv
+
+Then aligning with processed_users.csv + userdesc_labeled.csv to build a consolidated dataset.
