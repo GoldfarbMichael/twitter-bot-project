@@ -209,7 +209,7 @@ This script processes raw Twitter `.csv` files by:
 2   59563  Finally!!! #Messi𓃵 ❤️❤️❤️ #WorldCupFinal #Arge...
 ```
 
-# user_analysis_after_labeling.ipynb
+# twitter_conclusions.ipynb
 
 
 This notebook analyzes user-level features to understand behavioral and textual patterns of bots and humans on Twitter — particularly in the context of the Russia–Ukraine war dataset.
